@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1511039547875.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2530259825",
+    "id" : "4C4B117",
+    "lastKnownWriteTime" : 1511231430,
+    "last_content_update" : 1511231430959,
+    "path" : "~/abstract_autoencoder/helper_functions.R",
+    "project_path" : "helper_functions.R",
+    "properties" : {
+        "cursorPosition" : "47,27",
+        "scrollLine" : "32",
+        "tempName" : "Untitled2"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

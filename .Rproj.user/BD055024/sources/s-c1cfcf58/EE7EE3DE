@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1511203128275.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2699586064",
+    "id" : "EE7EE3DE",
+    "lastKnownWriteTime" : 1511231492,
+    "last_content_update" : 1511231492685,
+    "path" : "~/abstract_autoencoder/embedding_model.R",
+    "project_path" : "embedding_model.R",
+    "properties" : {
+        "cursorPosition" : "28,0",
+        "scrollLine" : "27",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

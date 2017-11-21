@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1511213949690.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "2940E5ED",
+    "lastKnownWriteTime" : 140420146113392,
+    "last_content_update" : 1511213949690,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "id" : "ce6fff312fcd47f9a590e1f5cad365e2",
+        "name" : "embedding_weights",
+        "title" : "embedding_weights"
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "object_explorer"
+}
