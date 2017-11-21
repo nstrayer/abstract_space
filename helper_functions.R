@@ -44,6 +44,57 @@ unique_vals <- function(char_vec, word = TRUE){
     unique()
 }
 
+
+word_encoder <- function(text_array, cutoff = 25){
+  word_frequencies <- text_array %>% 
+    map(~str_split(., "\\s+")) %>% 
+    unlist() %>% 
+    data_frame(word = .) %>% 
+    group_by(word) %>% 
+    summarise(times = n()) %>% 
+    filter(times > cutoff) %>% 
+    mutate(integerVal = 1:n())
+  
+  # all the unique words in the abstracts
+  unique_words <- word_frequencies$word
+  
+  # How many unique words do we have?
+  # we add one here to account for our dummy holder 0
+  vocab_size <- length(unique_words) + 1
+  
+  char_to_ints <- function(text){
+    str_split(text, "\\s+")[[1]] %>% 
+      as_data_frame() %>% 
+      left_join( word_frequencies, by = c("value" = "word")) %>% {
+        ifelse(is.na(.$integerVal), 0, .$integerVal)
+      }
+  }
+  
+  ints_to_char <- function(int_vec, merge = FALSE){
+    data_frame(integerVal = int_vec) %>% 
+      left_join(word_frequencies, by = "integerVal") %>% {
+        ifelse(is.na(.$word), "_", .$word)
+      }
+  }
+  
+  # convert a given integer to a one-hot-encoding vector
+  # we shift up the indexes by one to allow for our empty value 0.
+  int_to_onehot <- function(int){
+    empty <- array(0, dim = vocab_size)
+    empty[int + 1] <- 1
+    empty
+  }
+  
+  list(
+    unique_words = unique_words,
+    vocab_size = vocab_size, 
+    chr_to_int = char_to_ints,
+    int_to_char = ints_to_char, 
+    int_to_oh = int_to_onehot
+  )
+}
+
+
 one_hot_encoder <- function(possible_vals, word = TRUE){
   split <- make_split(word)
   # convert a given integer to a one-hot-encoding vector

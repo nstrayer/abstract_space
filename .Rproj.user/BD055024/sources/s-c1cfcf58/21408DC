@@ -5,14 +5,14 @@
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "0",
+    "hash" : "1251386350",
     "id" : "21408DC",
-    "lastKnownWriteTime" : 1511219192,
-    "last_content_update" : 1511219192503,
+    "lastKnownWriteTime" : 1511302237,
+    "last_content_update" : 1511302237258,
     "path" : "~/abstract_autoencoder/embedding_viz.R",
     "project_path" : "embedding_viz.R",
     "properties" : {
-        "cursorPosition" : "6,0",
+        "cursorPosition" : "25,0",
         "scrollLine" : "0",
         "tempName" : "Untitled1"
     },
