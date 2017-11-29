@@ -7,24 +7,27 @@ library(keras)
 source('helper_functions.R')
 
 ###### Constants (writen in caps to make apparent)
-NUM_ABSTRACTS <- 3000
+NUM_ABSTRACTS <- 4000
 CONTEXT_SIZE <- 2
-HIDDEN_DIM <- 128
-NUM_EPOCHS <- 200
-EMBEDDING_DIM <- 30
+HIDDEN_DIM <- 256
+NUM_EPOCHS <- 400
+EMBEDDING_DIM <- 32
 
-###### Gather abstracts
-abstracts_sample <- readRDS("bioarxiv_abstracts.rds") %>%
-  sample_n(NUM_ABSTRACTS) %>%
-# abstracts_sample <- readRDS("abstracts_small.rds") %>%
-  .$abstract %>%
-  sanitize_text() %>% 
-  .[str_count(.," ") > 10] #make sure abstracts are at least 10 words long
+
+if(NUM_ABSTRACTS == 4000){
+  abstracts_sample <- readRDS('data/abstracts_sample_4000.rds')
+} else {
+  abstracts_sample <- readRDS("bioarxiv_abstracts.rds") %>%
+    sample_n(NUM_ABSTRACTS) %>%
+    .$abstract %>%
+    sanitize_text() %>%
+    .[str_count(.," ") > 10] #make sure abstracts are at least 10 words long
+}
 
 NUM_ABSTRACTS <- length(abstracts_sample)
 
 # Set up custom encoding functions.
-encoder_funcs <- word_encoder(abstracts_sample)
+encoder_funcs <- word_encoder(abstracts_sample, cutoff = 50)
 # encoder_funcs$chr_to_int(abstracts_sample[1])
 
 # all the unique words in the abstracts
@@ -54,12 +57,6 @@ for(abstract in int_abstracts){
   }
 }
 
-
-# saveRDS(X, "abstract_embed_X.rds")
-# saveRDS(y, "abstract_embed_y.rds")
-# X <- readRDS("abstract_embed_X.rds")
-# y <- readRDS("abstract_embed_y.rds")
-
 rm()
 gc()
 
@@ -75,7 +72,7 @@ model %>%
   layer_flatten() %>%
   layer_dense(
     units = HIDDEN_DIM, 
-    kernel_regularizer = regularizer_l2(l = 0.1),
+    kernel_regularizer = regularizer_l2(l = 0.05),
     activation = 'relu') %>% 
   layer_batch_normalization() %>% 
   layer_dense(
@@ -92,16 +89,15 @@ model %>% compile(
 
 model %>% fit(
   X, y, 
-  batch_size = 500,
+  batch_size = 2500,
   validation_split = 0.1,
   epochs = NUM_EPOCHS
 )
 
 save_model_hdf5(model, "embeddings_model2.h5")
  
-
-
-test_x <- encoder_funcs$chr_to_int("_ sequence for data")
+model <- load_model_hdf5("embeddings_model2.h5")
+test_x <- encoder_funcs$chr_to_int("rna sequence for data")
 unique_words[which.max(predict(model, t(test_x)))] 
 
 embedding_weights <- model$layers[[1]]$get_weights()[[1]]
