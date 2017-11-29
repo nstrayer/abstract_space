@@ -6,7 +6,7 @@ library(Rtsne)
 library(plotly)
 
 
-embedding_data <- readRDS("embedding_weights.rds")
+embedding_data <- readRDS("data/embedding_weights.rds")
 X <- embedding_data$weights
 labels <- embedding_data$labels
 dim(X)
